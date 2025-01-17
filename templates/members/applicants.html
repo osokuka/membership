@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block title %}Applicants - Trokitesit{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-users text-gold me-2"></i>
+                    <h1 class="text-gold mb-0">Applicant List</h1>
+                </div>
+                <div class="d-flex align-items-center">
+                    <label for="pageSize" class="me-2 text-light">Show entries:</label>
+                    <select id="pageSize" class="form-select form-select-sm bg-dark text-light border-gold" style="width: auto;" onchange="changePageSize(this.value)">
+                        {% for size in page_sizes %}
+                            <option value="{{ size }}" {% if size == current_page_size %}selected{% endif %}>{{ size }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover mb-0" id="applicantsTable">
+                        <thead>
+                            <tr class="border-bottom border-gold">
+                                <th class="cursor-pointer text-gold px-3" onclick="sortTable(0)">
+                                    Full Name <span class="sort-icon ms-1">↕</span>
+                                </th>
+                                <th class="cursor-pointer text-gold px-3" onclick="sortTable(1)">
+                                    Email <span class="sort-icon ms-1">↕</span>
+                                </th>
+                                <th class="cursor-pointer text-gold px-3" onclick="sortTable(2)">
+                                    Application Date <span class="sort-icon ms-1">↕</span>
+                                </th>
+                                <th class="cursor-pointer text-gold px-3" onclick="sortTable(3)">
+                                    Stage <span class="sort-icon ms-1">↕</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for applicant in applicants %}
+                            <tr class="border-bottom border-secondary">
+                                <td class="px-3">
+                                    <a href="{% url 'candidate_detail' applicant.id %}" class="text-gold text-decoration-none">
+                                        {{ applicant.full_name }}
+                                    </a>
+                                </td>
+                                <td class="px-3 text-light">{{ applicant.email }}</td>
+                                <td class="px-3 text-light">{{ applicant.application_date|date:"Y-m-d H:i" }}</td>
+                                <td class="px-3">
+                                    <span class="badge bg-gold text-dark">{{ applicant.get_current_stage_display }}</span>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center py-4 text-light">No applicants found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {% if is_paginated %}
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-3">
+                <div class="mb-2 mb-md-0 text-light">
+                    Showing {{ page_obj.start_index }} to {{ page_obj.end_index }} of {{ paginator.count }} entries
+                </div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center justify-content-md-end mb-0">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link bg-dark text-gold border-gold" href="?page=1&page_size={{ current_page_size }}">&laquo;</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link bg-dark text-gold border-gold" href="?page={{ page_obj.previous_page_number }}&page_size={{ current_page_size }}">Previous</a>
+                            </li>
+                        {% endif %}
+                        
+                        {% for num in paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <li class="page-item active">
+                                    <span class="page-link bg-gold text-dark border-gold">{{ num }}</span>
+                                </li>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <li class="page-item">
+                                    <a class="page-link bg-dark text-gold border-gold" href="?page={{ num }}&page_size={{ current_page_size }}">{{ num }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link bg-dark text-gold border-gold" href="?page={{ page_obj.next_page_number }}&page_size={{ current_page_size }}">Next</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link bg-dark text-gold border-gold" href="?page={{ paginator.num_pages }}&page_size={{ current_page_size }}">&raquo;</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+{% block extra_js %}
+<script>
+let sortDirections = {
+    0: 'asc',  // Full Name
+    1: 'asc',  // Email
+    2: 'asc',  // Application Date
+    3: 'asc'   // Stage
+};
+
+function sortTable(columnIndex) {
+    const table = document.getElementById('applicantsTable');
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    const headers = table.querySelectorAll('th');
+    
+    // Update sort direction
+    sortDirections[columnIndex] = sortDirections[columnIndex] === 'asc' ? 'desc' : 'asc';
+    
+    // Reset all sort icons
+    headers.forEach(header => {
+        header.querySelector('.sort-icon').textContent = '↕';
+    });
+    
+    // Update clicked header's sort icon
+    headers[columnIndex].querySelector('.sort-icon').textContent = 
+        sortDirections[columnIndex] === 'asc' ? '↑' : '↓';
+    
+    // Sort rows
+    rows.sort((a, b) => {
+        let aValue = a.cells[columnIndex].textContent.trim();
+        let bValue = b.cells[columnIndex].textContent.trim();
+        
+        // Special handling for dates
+        if (columnIndex === 2) {
+            aValue = new Date(aValue);
+            bValue = new Date(bValue);
+        }
+        
+        if (aValue < bValue) return sortDirections[columnIndex] === 'asc' ? -1 : 1;
+        if (aValue > bValue) return sortDirections[columnIndex] === 'asc' ? 1 : -1;
+        return 0;
+    });
+    
+    // Reorder rows in the table
+    rows.forEach(row => tbody.appendChild(row));
+}
+
+function changePageSize(size) {
+    window.location.href = `?page=1&page_size=${size}`;
+}
+</script>
+{% endblock %}
+{% endblock %}

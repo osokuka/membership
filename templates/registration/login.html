@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login - Grand Lodge of Kosovo{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-box">
+        <div class="login-header">
+            <img src="{% static 'images/logo.png' %}" alt="Grand Lodge of Kosovo" class="login-logo">
+            <h2>Welcome Back</h2>
+        </div>
+        
+        {% if form.errors %}
+        <div class="login-message error">
+            <p>Your username and password didn't match. Please try again.</p>
+        </div>
+        {% endif %}
+        
+        {% if next %}
+            {% if user.is_authenticated %}
+            <div class="login-message warning">
+                <p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+            </div>
+            {% else %}
+            <div class="login-message info">
+                <p>Please login to access this page.</p>
+            </div>
+            {% endif %}
+        {% endif %}
+
+        <form method="post" action="{% url 'login' %}" class="login-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" name="username" placeholder="Username" required autofocus>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <input type="hidden" name="next" value="{{ next }}">
+            <button type="submit" class="login-button">Login</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .login-message {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+    .login-message.error {
+        background-color: rgba(244, 67, 54, 0.1);
+        color: #f44336;
+    }
+
+    .login-message.warning {
+        background-color: rgba(255, 152, 0, 0.1);
+        color: #ff9800;
+    }
+
+    .login-message.info {
+        background-color: rgba(33, 150, 243, 0.1);
+        color: #2196f3;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 4px;
+        background-color: rgba(255,255,255,0.05);
+        color: var(--text-color);
+        font-size: 1rem;
+    }
+
+    .form-group input:focus {
+        outline: none;
+        border-color: var(--secondary-color);
+    }
+</style>
+{% endblock %} 

@@ -1,0 +1,134 @@
+{
+    "project": "Membership App Development",
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Set up Django project and environment",
+        "description": "Initialize the Django project, configure settings, and set up the development environment.",
+        "status": "Completed",
+        "assignee": null,
+        "priority": "High"
+      },
+      {
+        "id": 2,
+        "title": "Create user authentication system",
+        "description": "Implement user login, registration, and proper password encryption with Django's built-in authentication system.",
+        "status": "Completed",
+        "assignee": null,
+        "priority": "High"
+      },
+      {
+        "id": 3,
+        "title": "Design database models for membership process",
+        "description": "Define models for members, applications, lodges, votes, stages, interview scheduling, and associated metadata.",
+        "status": "Completed",
+        "assignee": null,
+        "priority": "High"
+      },
+      {
+        "id": 4,
+        "title": "Implement membership request feature",
+        "description": "Build the frontend and backend for accepting membership requests, including form submission and data storage.",
+        "status": "In Progress",
+        "assignee": null,
+        "priority": "Medium"
+      },
+      {
+        "id": 5,
+        "title": "Add functionality to import candidate data from Excel",
+        "description": "Enable manual upload of candidate data from Excel files with proper validation and error handling.",
+        "status": "Completed",
+        "assignee": null,
+        "priority": "Medium"
+      },
+      {
+        "id": 6,
+        "title": "Create senior member dashboard",
+        "description": "Design a dashboard for senior members to review and approve membership requests at different stages.",
+        "status": "In Progress",
+        "assignee": null,
+        "priority": "High"
+      },
+      {
+        "id": 7,
+        "title": "Implement lodge review functionality",
+        "description": "Develop functionality for lodges to review candidates and cast votes to promote candidates to the next stage.",
+        "status": "To Do",
+        "assignee": null,
+        "priority": "Medium"
+      },
+      {
+        "id": 8,
+        "title": "Develop document submission and background check feature",
+        "description": "Enable candidates to submit required documents and perform background checks as part of the application process.",
+        "status": "In Progress",
+        "assignee": null,
+        "priority": "High"
+      },
+      {
+        "id": 9,
+        "title": "Build interview scheduling module",
+        "description": "Allow secretaries to schedule interviews and notify candidates of their interview times.",
+        "status": "To Do",
+        "assignee": null,
+        "priority": "Medium"
+      },
+      {
+        "id": 10,
+        "title": "Develop voting functionality for acceptance stage",
+        "description": "Implement a voting system to determine whether candidates are accepted at the final stage.",
+        "status": "To Do",
+        "assignee": null,
+        "priority": "Medium"
+      },
+      {
+        "id": 11,
+        "title": "Design frontend UI/UX for all stages",
+        "description": "Create HTML, CSS, and JavaScript components for the application's user interface, ensuring a smooth user experience.",
+        "status": "In Progress",
+        "assignee": null,
+        "priority": "High"
+      },
+      {
+        "id": 12,
+        "title": "Secure the application",
+        "description": "Implement security features such as CSRF protection, input validation, and permission levels for different user roles.",
+        "status": "In Progress",
+        "assignee": null,
+        "priority": "High"
+      },
+      {
+        "id": 13,
+        "title": "Test and debug application",
+        "description": "Perform thorough testing of all features and stages, fix bugs, and ensure the app works seamlessly.",
+        "status": "In Progress",
+        "assignee": null,
+        "priority": "High"
+      },
+      {
+        "id": 14,
+        "title": "Deploy the application",
+        "description": "Deploy the application to a production server and configure it for use with Nginx.",
+        "status": "To Do",
+        "assignee": null,
+        "priority": "Medium"
+      },
+      {
+        "id": 15,
+        "title": "Generate comprehensive candidate reports",
+        "description": "Develop a feature to generate detailed HTML reports for each candidate. The report should display the current stage of the onboarding process, mark stages as completed or pending, show the interview date if scheduled, and show the interview status (Passed/Failed) if completed.",
+        "status": "To Do",
+        "assignee": null,
+        "priority": "High"
+      },
+      {
+        "id": 16,
+        "title": "Build candidate dashboard with sorting options",
+        "description": "Develop a dashboard that lists all candidates and provides options to sort by fields such as name, stage, application date, or interview date.",
+        "status": "Completed",
+        "assignee": null,
+        "priority": "High"
+      }
+    ]
+  }
+  

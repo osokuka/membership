@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Upload Document - Grand Lodge of Kosovo{% endblock %}
+
+{% block content %}
+<div class="upload-container">
+    <div class="upload-box">
+        <div class="card-header">
+            <i class="fas fa-file-upload"></i>
+            <h2>Upload Member Document</h2>
+        </div>
+        
+        <form method="post" enctype="multipart/form-data" class="upload-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.member.id_for_label }}">Member</label>
+                {{ form.member }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.document_type.id_for_label }}">Document Type</label>
+                {{ form.document_type }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}">Title</label>
+                {{ form.title }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">Description</label>
+                {{ form.description }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.file.id_for_label }}">File</label>
+                {{ form.file }}
+            </div>
+            
+            <div class="form-actions">
+                <a href="{% url 'control_panel' %}" class="cancel-button">Cancel</a>
+                <button type="submit" class="submit-button">Upload Document</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .upload-container {
+        padding: 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .upload-box {
+        background-color: var(--primary-color);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .card-header {
+        background-color: rgba(196, 167, 71, 0.1);
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .card-header i {
+        color: var(--secondary-color);
+        font-size: 1.5rem;
+    }
+
+    .card-header h2 {
+        margin: 0;
+        color: var(--secondary-color);
+        font-family: 'Cinzel', serif;
+    }
+
+    .upload-form {
+        padding: 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--secondary-color);
+        font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 4px;
+        background-color: rgba(255,255,255,0.05);
+        color: var(--text-color);
+        font-size: 1rem;
+    }
+
+    .form-group textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    .form-group input[type="file"] {
+        padding: 0.5rem;
+        background: none;
+        border: none;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+        margin-top: 2rem;
+    }
+
+    .submit-button,
+    .cancel-button {
+        padding: 0.8rem 1.5rem;
+        border-radius: 4px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .submit-button {
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+        border: none;
+        cursor: pointer;
+    }
+
+    .submit-button:hover {
+        background-color: #d4b757;
+    }
+
+    .cancel-button {
+        background-color: transparent;
+        color: var(--text-color);
+        border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .cancel-button:hover {
+        background-color: rgba(255,255,255,0.1);
+    }
+
+    @media screen and (max-width: 768px) {
+        .upload-container {
+            padding: 1rem;
+        }
+
+        .upload-form {
+            padding: 1rem;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+
+        .submit-button,
+        .cancel-button {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+{% endblock %} 

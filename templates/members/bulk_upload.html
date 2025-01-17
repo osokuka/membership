@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Bulk Upload Candidates - Grand Lodge of Kosovo{% endblock %}
+
+{% block content %}
+<div class="upload-container">
+    <div class="upload-box">
+        <div class="card-header">
+            <i class="fas fa-file-excel"></i>
+            <h2>Bulk Upload Candidates</h2>
+        </div>
+        
+        <div class="upload-instructions">
+            <h3>Instructions</h3>
+            <p>Your Excel file should contain the following columns:</p>
+            <ul>
+                <li><strong>Timestamp</strong> - Application submission time</li>
+                <li><strong>Email Address</strong> (required) - Candidate's email</li>
+                <li><strong>Emrin dhe Mbiemrin</strong> (required) - Full name</li>
+                <li><strong>Nr. e Telefonit</strong> - Phone number</li>
+                <li><strong>Adresa</strong> - Address</li>
+                <li><strong>Qyteti</strong> - City</li>
+                <li><strong>Jeni qytetar i Republikes së Kosoves?</strong> - Kosovo citizenship (Po/Jo)</li>
+                <li><strong>Shto vegzën e profilit tuaj</strong> - Social media profile link</li>
+            </ul>
+            <p class="note">Note: The column headers must match exactly as shown above. Email addresses must be unique.</p>
+        </div>
+        
+        <form method="post" enctype="multipart/form-data" class="upload-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.file.id_for_label }}">Excel File</label>
+                {{ form.file }}
+                <small class="help-text">Supported formats: .xlsx, .xls</small>
+            </div>
+            
+            <div class="form-actions">
+                <a href="{% url 'control_panel' %}" class="cancel-button">Cancel</a>
+                <button type="submit" class="submit-button">Upload Candidates</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .upload-container {
+        padding: 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .upload-box {
+        background-color: var(--primary-color);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .card-header {
+        background-color: rgba(196, 167, 71, 0.1);
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .card-header i {
+        color: var(--secondary-color);
+        font-size: 1.5rem;
+    }
+
+    .card-header h2 {
+        margin: 0;
+        color: var(--secondary-color);
+        font-family: 'Cinzel', serif;
+    }
+
+    .upload-instructions {
+        padding: 1.5rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .upload-instructions h3 {
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+        font-family: 'Cinzel', serif;
+    }
+
+    .upload-instructions ul {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0;
+    }
+
+    .upload-instructions li {
+        margin: 0.5rem 0;
+        padding-left: 1.5rem;
+        position: relative;
+    }
+
+    .upload-instructions li::before {
+        content: "•";
+        color: var(--secondary-color);
+        position: absolute;
+        left: 0;
+    }
+
+    .upload-instructions .note {
+        margin-top: 1rem;
+        padding: 1rem;
+        background-color: rgba(196, 167, 71, 0.1);
+        border-radius: 4px;
+        font-style: italic;
+    }
+
+    .upload-form {
+        padding: 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--secondary-color);
+        font-weight: 600;
+    }
+
+    .form-group input[type="file"] {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 4px;
+        background-color: rgba(255,255,255,0.05);
+        color: var(--text-color);
+    }
+
+    .help-text {
+        display: block;
+        margin-top: 0.5rem;
+        color: rgba(255,255,255,0.6);
+        font-size: 0.9rem;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+        margin-top: 2rem;
+    }
+
+    .submit-button,
+    .cancel-button {
+        padding: 0.8rem 1.5rem;
+        border-radius: 4px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .submit-button {
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+        border: none;
+        cursor: pointer;
+    }
+
+    .submit-button:hover {
+        background-color: #d4b757;
+    }
+
+    .cancel-button {
+        background-color: transparent;
+        color: var(--text-color);
+        border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .cancel-button:hover {
+        background-color: rgba(255,255,255,0.1);
+    }
+
+    @media screen and (max-width: 768px) {
+        .upload-container {
+            padding: 1rem;
+        }
+
+        .upload-form,
+        .upload-instructions {
+            padding: 1rem;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+
+        .submit-button,
+        .cancel-button {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+{% endblock %} 

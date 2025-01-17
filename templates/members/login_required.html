@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login Required - Grand Lodge of Kosovo{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-box">
+        <div class="login-header">
+            <img src="{% static 'images/logo.png' %}" alt="Lodge Logo" class="login-logo">
+            <h2>Member Access Only</h2>
+        </div>
+        <p class="login-message">Please log in to access this content.</p>
+        <a href="{% url 'login' %}" class="login-button">Sign In</a>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Grand Lodge of Kosovo{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    {% if user.is_authenticated %}
+    <h1>Welcome, {{ user.get_full_name }}</h1>
+    {% else %}
+    <h1>Welcome to Grand Lodge of Kosovo</h1>
+    {% endif %}
+    
+    <div class="dashboard-grid">
+        <!-- Last Meeting Card -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <i class="fas fa-history"></i>
+                <h2>Last Meeting</h2>
+            </div>
+            <div class="card-content">
+                <p class="lodge-name">Lodge "Arbëria"</p>
+                <p class="meeting-date">February 15, 2024</p>
+                <p class="secretary">Secretary: John Doe</p>
+                <div class="minutes">
+                    <h3>Minutes Highlights</h3>
+                    <p>Regular monthly meeting was held. Important matters were discussed regarding upcoming events.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Next Meeting Card -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <i class="fas fa-calendar-alt"></i>
+                <h2>Next Meeting</h2>
+            </div>
+            <div class="card-content">
+                <p class="lodge-name">Lodge "Kosova"</p>
+                <p class="meeting-date">March 20, 2024</p>
+                <p class="secretary">Secretary: Jane Smith</p>
+                <div class="meeting-info">
+                    <p><strong>Location:</strong> Main Temple</p>
+                    <p><strong>Time:</strong> 6:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar Section -->
+    <div class="calendar-section">
+        <h2>Lodge Calendar</h2>
+        <div id="calendar"></div>
+    </div>
+</div>
+
+<!-- Include FullCalendar -->
+<link href='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.10/main.min.css' rel='stylesheet' />
+<link href='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.10/main.min.css' rel='stylesheet' />
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.10/main.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.10/main.min.js'></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: [
+                {
+                    title: 'Lodge "Arbëria" Meeting',
+                    start: '2024-03-15',
+                    backgroundColor: '#c4a747'
+                },
+                {
+                    title: 'Lodge "Kosova" Meeting',
+                    start: '2024-03-20',
+                    backgroundColor: '#c4a747'
+                },
+                {
+                    title: 'Grand Lodge Meeting',
+                    start: '2024-03-25',
+                    backgroundColor: '#c4a747'
+                }
+            ],
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,dayGridWeek'
+            }
+        });
+        calendar.render();
+    });
+</script>
+{% endblock %} 

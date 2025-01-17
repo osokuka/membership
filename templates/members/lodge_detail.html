@@ -1,0 +1,333 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ lodge.name }} - Grand Lodge of Kosovo{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h1>{{ lodge.name }}</h1>
+    
+    <div class="dashboard-grid">
+        <!-- Last Meeting Card -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <i class="fas fa-history"></i>
+                <h2>Last Meeting</h2>
+            </div>
+            <div class="card-content">
+                <p class="lodge-name">{{ lodge.name }}</p>
+                <p class="meeting-date">February 15, 2024</p>
+                <p class="secretary">Secretary: John Doe</p>
+                <div class="minutes">
+                    <h3>Minutes Highlights</h3>
+                    <p>Regular monthly meeting was held. Important matters were discussed regarding upcoming events.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Next Meeting Card -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <i class="fas fa-calendar-alt"></i>
+                <h2>Next Meeting</h2>
+            </div>
+            <div class="card-content">
+                <p class="lodge-name">{{ lodge.name }}</p>
+                <p class="meeting-date">March 20, 2024</p>
+                <p class="secretary">Secretary: Jane Smith</p>
+                <div class="meeting-info">
+                    <p><strong>Location:</strong> Main Temple</p>
+                    <p><strong>Time:</strong> 6:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar Section -->
+    <div class="calendar-section">
+        <h2>{{ lodge.name }} Calendar</h2>
+        <div id="calendar"></div>
+    </div>
+
+    <!-- Lodge Profile Section -->
+    <div class="dashboard-grid">
+        <!-- Basic Information -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <i class="fas fa-info-circle"></i>
+                <h2>Basic Information</h2>
+            </div>
+            <div class="card-content">
+                <div class="info-item">
+                    <span class="label">Founded:</span>
+                    <span class="value">January 15, 2020</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Registration Number:</span>
+                    <span class="value">KS-001</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Meeting Schedule:</span>
+                    <span class="value">Every 3rd Wednesday</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Location:</span>
+                    <span class="value">Main Temple, Pristina</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leadership -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <i class="fas fa-users"></i>
+                <h2>Leadership</h2>
+            </div>
+            <div class="card-content">
+                <div class="info-item">
+                    <span class="label">Worshipful Master:</span>
+                    <span class="value">John Smith</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Senior Warden:</span>
+                    <span class="value">Michael Johnson</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Junior Warden:</span>
+                    <span class="value">Robert Wilson</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Secretary:</span>
+                    <span class="value">David Brown</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Treasurer:</span>
+                    <span class="value">James Davis</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <i class="fas fa-chart-bar"></i>
+                <h2>Statistics</h2>
+            </div>
+            <div class="card-content">
+                <div class="info-item">
+                    <span class="label">Total Members:</span>
+                    <span class="value">45</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Active Members:</span>
+                    <span class="value">38</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Average Attendance:</span>
+                    <span class="value">85%</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">New Members (2024):</span>
+                    <span class="value">5</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include FullCalendar -->
+<link href='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.10/main.min.css' rel='stylesheet' />
+<link href='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.10/main.min.css' rel='stylesheet' />
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.10/main.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.10/main.min.js'></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: [
+                {
+                    title: '{{ lodge.name }} Meeting',
+                    start: '2024-03-15',
+                    backgroundColor: '#c4a747'
+                },
+                {
+                    title: 'Committee Meeting',
+                    start: '2024-03-08',
+                    backgroundColor: '#47a7c4'
+                },
+                {
+                    title: 'Degree Work',
+                    start: '2024-03-22',
+                    backgroundColor: '#c44747'
+                }
+            ],
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,dayGridWeek'
+            }
+        });
+        calendar.render();
+    });
+</script>
+
+<style>
+    .dashboard-container {
+        padding: 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .dashboard-container h1 {
+        color: var(--secondary-color);
+        margin-bottom: 2rem;
+        font-family: 'Cinzel', serif;
+    }
+
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .dashboard-card {
+        background-color: var(--primary-color);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-header {
+        background-color: rgba(196, 167, 71, 0.1);
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .card-header i {
+        color: var(--secondary-color);
+        font-size: 1.2rem;
+    }
+
+    .card-header h2 {
+        margin: 0;
+        color: var(--secondary-color);
+        font-family: 'Cinzel', serif;
+        font-size: 1.2rem;
+    }
+
+    .card-content {
+        padding: 1.5rem;
+    }
+
+    .info-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .info-item:last-child {
+        border-bottom: none;
+    }
+
+    .info-item .label {
+        color: var(--secondary-color);
+        font-weight: 600;
+    }
+
+    .info-item .value {
+        color: var(--text-color);
+    }
+
+    .lodge-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--secondary-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .meeting-date {
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .secretary {
+        color: var(--text-color);
+        opacity: 0.8;
+        margin-bottom: 1rem;
+    }
+
+    .minutes h3 {
+        color: var(--secondary-color);
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .minutes p {
+        color: var(--text-color);
+        opacity: 0.9;
+        line-height: 1.4;
+    }
+
+    .calendar-section {
+        background-color: var(--primary-color);
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin: 2rem 0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .calendar-section h2 {
+        color: var(--secondary-color);
+        margin-bottom: 1.5rem;
+        font-family: 'Cinzel', serif;
+    }
+
+    #calendar {
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 1rem;
+        border-radius: 4px;
+    }
+
+    @media screen and (max-width: 768px) {
+        .dashboard-container {
+            padding: 1rem;
+        }
+
+        .dashboard-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .info-item {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.25rem;
+        }
+
+        .card-content {
+            padding: 1rem;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .dashboard-container h1 {
+            font-size: 1.5rem;
+        }
+
+        .card-header h2 {
+            font-size: 1rem;
+        }
+    }
+</style>
+{% endblock %} 
